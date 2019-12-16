@@ -1,0 +1,405 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>ejercicio1</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-06-13"><meta name="DC.source" content="ejercicio1.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="keyword">function</span> [ ] = ejercicio1( )
+
+<span class="comment">%Demuestre la Propiedad de la Transformada de Fourier de la convolucion de</span>
+<span class="comment">%dos senales:</span>
+<span class="comment">%            F</span>
+<span class="comment">%x1(t)*x2(t)--&gt;X1(w)X2(w)</span>
+
+
+<span class="comment">%Se limpia todas las variables del Workspace</span>
+clear <span class="string">all</span>
+<span class="comment">%Se cierran todas las figuras</span>
+close <span class="string">all</span>
+<span class="comment">%Para crear las primeras senal continua se crea un vector t que la delimite</span>
+t=0:0.01:10;
+
+<span class="comment">%Usando la funcion heaviside se crea una funcion cuadrada continua x1(t) y</span>
+<span class="comment">%x2(t)</span>
+
+x1=heaviside(t)-heaviside(t-2);
+x2=heaviside(t)-heaviside(t-4);
+<span class="comment">%Usando plot() se grafica de manera discreta x1(n), de color rojo</span>
+
+<span class="comment">%Se obtiene la convolucion usando conv(), el vector t2 tiene una longitud</span>
+<span class="comment">%igual a length(x2)+length(x1)-2)*0.01 para ubicar correctamente el eje</span>
+<span class="comment">%vertical de la convolucion</span>
+Y=conv(x1,x2)*0.01;
+t2=0:0.01:(length(x2)+length(x1)-2)*0.01;
+
+<span class="comment">%Se grafica x1(t) , x2(t) y y(t) usando plot ya que t es una variable</span>
+<span class="comment">%double</span>
+figure
+subplot(3,2,1)
+plot(t,x1,<span class="string">'m'</span>);
+grid
+xlabel(<span class="string">'t'</span>)
+ylabel(<span class="string">'x_1(t)'</span>)
+title(<span class="string">'Senal x_1(t)'</span>)
+ylim([-0.4 , 1.4])
+
+
+
+
+subplot(3,2,2)
+plot(t,x2,<span class="string">'b'</span>);
+grid
+xlabel(<span class="string">'t'</span>)
+ylabel(<span class="string">'x_2(t)'</span>)
+title(<span class="string">'Senal x_2(t)'</span>)
+ylim([-0.4 , 1.4])
+
+
+
+subplot(3,2,3)
+
+plot(t2,Y,<span class="string">'k'</span>);
+grid
+xlabel(<span class="string">'t'</span>)
+ylabel(<span class="string">'y(t)'</span>)
+title(<span class="string">'Convolucion x_1(t) \ast x_2(t)'</span>)
+ylim([-0.4 , 2.4])
+
+<span class="comment">%Para obtener la Transformada de Fourier de la convolucion de x1(t) con</span>
+<span class="comment">%x2(t) es necesario tener la suncion como variable simbolica.</span>
+<span class="comment">%Se crea la  variable simbolica w y la funcion z  que es la version</span>
+<span class="comment">%simbolica de la funcion y(t) para asi poder usar fourier()</span>
+syms <span class="string">p</span>
+z=rampas(p)-rampas(p-2)-rampas(p-4)+rampas(p-6)
+
+Z = fourier(z,p)
+
+<span class="comment">%Se grafica y(t) (con variable simbolica) y Y(w) con fplot()</span>
+subplot(3,2,4)
+fplot(z,[-1 7],<span class="string">'k'</span>)
+grid
+xlabel(<span class="string">'t'</span>)
+ylabel(<span class="string">'y(t)'</span>)
+title(<span class="string">'Grafica y(t) (con Variable Simbolica)'</span>)
+ylim([-0.4 , 2.4])
+
+<span class="comment">%La Transformada de Fourier de la convolucion enrtre x1(t) y x2(t) se</span>
+<span class="comment">%grafica de color verde</span>
+subplot(3,2,[5,6])
+fplot(abs(Z),[-10 10],<span class="string">'g'</span>)
+grid
+xlabel(<span class="string">'\omega'</span>)
+ylabel(<span class="string">'Y(\omega)'</span>)
+title(<span class="string">'T.F de y(t)'</span>)
+ylim([-0.4 , 8.8])
+
+<span class="comment">%Se limpia todas las variables</span>
+clear <span class="string">all</span>
+
+<span class="comment">%Se crea dos variables simbolicas t por tiempo y w por frecuencia</span>
+syms  <span class="string">t</span> <span class="string">w</span>;
+
+<span class="comment">%Se escriben la funcion x1 con variables simbolicas y se saca la</span>
+<span class="comment">%Transformada de Fourier.</span>
+x1 = heaviside(t)-heaviside(t-2);
+X1 = fourier(x1,w)
+
+<span class="comment">%Se escriben la funcion x2 con variables simbolicas y se saca la</span>
+<span class="comment">%Transformada de Fourier.</span>
+x2 = heaviside(t)-heaviside(t-4);
+X2 = fourier(x2,w)
+
+<span class="comment">%Se multiplica las dos senales</span>
+Y = X1*X2
+
+<span class="comment">%Se grafica x1(t), X1(w), x2(t), X2(w)</span>
+figure
+
+subplot(3,2,1)
+fplot(x1,[0 10],<span class="string">'m'</span>)
+grid
+xlabel(<span class="string">'t'</span>)
+ylabel(<span class="string">'x_1(t)'</span>)
+title(<span class="string">'Senal x_1(t)'</span>)
+ylim([-0.4 , 1.4])
+
+subplot(3,2,2)
+fplot(abs(X1),[-20 20],<span class="string">'r'</span>)
+grid
+xlabel(<span class="string">'\omega'</span>)
+ylabel(<span class="string">'X_1(\omega)'</span>)
+title(<span class="string">'T.F de x_1(t)'</span>)
+ylim([-0.4 , 2.4])
+
+subplot(3,2,3)
+fplot(x2,[0 10],<span class="string">'b'</span>)
+grid
+xlabel(<span class="string">'t'</span>)
+ylabel(<span class="string">'x_2(t)'</span>)
+title(<span class="string">'Senal x_2(t)'</span>)
+ylim([-0.4 , 1.4])
+
+subplot(3,2,4)
+fplot(abs(X2),[-20 20],<span class="string">'c'</span>)
+grid
+xlabel(<span class="string">'\omega'</span>)
+ylabel(<span class="string">'X_2(\omega)'</span>)
+title(<span class="string">'T.F de x_2(t)'</span>)
+ylim([-0.4 , 4.8])
+
+<span class="comment">%Se grafica de color verde la multiplicacion de la T.F de x1(t) con la T.F</span>
+<span class="comment">%de x2(t), Y(w)</span>
+subplot(3,2,[5,6])
+fplot(abs(Y),[-10 10],<span class="string">'g'</span>)
+grid
+xlabel(<span class="string">'\omega'</span>)
+ylabel(<span class="string">'Y(\omega)'</span>)
+title(<span class="string">'Multiplicacion X_1(\omega) \cdot X_2(\omega)'</span>)
+ylim([-0.4 , 8.8])
+<span class="keyword">end</span>
+</pre><pre class="codeoutput"> 
+z =
+ 
+heaviside(p - 6)*(p - 6) - heaviside(p - 4)*(p - 4) - heaviside(p - 2)*(p - 2) + p*heaviside(p)
+ 
+ 
+Z =
+ 
+pi*dirac(1, p)*1i - exp(-p*2i)*(pi*dirac(1, p) + 1i/p^2)*1i - exp(-p*4i)*(pi*dirac(1, p) + 1i/p^2)*1i + exp(-p*6i)*(pi*dirac(1, p) + 1i/p^2)*1i - 1/p^2
+ 
+ 
+X1 =
+ 
+(cos(2*w)*1i + sin(2*w))/w - 1i/w
+ 
+ 
+X2 =
+ 
+(cos(4*w)*1i + sin(4*w))/w - 1i/w
+ 
+ 
+Y =
+ 
+((cos(2*w)*1i + sin(2*w))/w - 1i/w)*((cos(4*w)*1i + sin(4*w))/w - 1i/w)
+ 
+</pre><img vspace="5" hspace="5" src="ejercicio1_01.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="ejercicio1_02.png" style="width:560px;height:420px;" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+function [ ] = ejercicio1( )
+
+%Demuestre la Propiedad de la Transformada de Fourier de la convolucion de
+%dos senales:
+%            F
+%x1(t)*x2(t)REPLACE_WITH_DASH_DASH>X1(w)X2(w)
+
+
+%Se limpia todas las variables del Workspace
+clear all
+%Se cierran todas las figuras
+close all
+%Para crear las primeras senal continua se crea un vector t que la delimite
+t=0:0.01:10;
+
+%Usando la funcion heaviside se crea una funcion cuadrada continua x1(t) y
+%x2(t)
+
+x1=heaviside(t)-heaviside(t-2);
+x2=heaviside(t)-heaviside(t-4);
+%Usando plot() se grafica de manera discreta x1(n), de color rojo
+
+%Se obtiene la convolucion usando conv(), el vector t2 tiene una longitud
+%igual a length(x2)+length(x1)-2)*0.01 para ubicar correctamente el eje
+%vertical de la convolucion
+Y=conv(x1,x2)*0.01;
+t2=0:0.01:(length(x2)+length(x1)-2)*0.01;
+
+%Se grafica x1(t) , x2(t) y y(t) usando plot ya que t es una variable
+%double
+figure
+subplot(3,2,1)
+plot(t,x1,'m');
+grid
+xlabel('t')
+ylabel('x_1(t)')
+title('Senal x_1(t)')
+ylim([-0.4 , 1.4])
+
+
+
+
+subplot(3,2,2)
+plot(t,x2,'b');
+grid
+xlabel('t')
+ylabel('x_2(t)')
+title('Senal x_2(t)')
+ylim([-0.4 , 1.4])
+
+
+
+subplot(3,2,3)
+
+plot(t2,Y,'k');
+grid
+xlabel('t')
+ylabel('y(t)')
+title('Convolucion x_1(t) \ast x_2(t)')
+ylim([-0.4 , 2.4])
+
+%Para obtener la Transformada de Fourier de la convolucion de x1(t) con
+%x2(t) es necesario tener la suncion como variable simbolica.
+%Se crea la  variable simbolica w y la funcion z  que es la version
+%simbolica de la funcion y(t) para asi poder usar fourier()
+syms p 
+z=rampas(p)-rampas(p-2)-rampas(p-4)+rampas(p-6)
+
+Z = fourier(z,p)
+
+%Se grafica y(t) (con variable simbolica) y Y(w) con fplot()
+subplot(3,2,4)
+fplot(z,[-1 7],'k')
+grid
+xlabel('t')
+ylabel('y(t)')
+title('Grafica y(t) (con Variable Simbolica)')
+ylim([-0.4 , 2.4])
+
+%La Transformada de Fourier de la convolucion enrtre x1(t) y x2(t) se
+%grafica de color verde
+subplot(3,2,[5,6])
+fplot(abs(Z),[-10 10],'g')
+grid
+xlabel('\omega')
+ylabel('Y(\omega)')
+title('T.F de y(t)')
+ylim([-0.4 , 8.8])
+
+%Se limpia todas las variables
+clear all
+
+%Se crea dos variables simbolicas t por tiempo y w por frecuencia
+syms  t w;
+
+%Se escriben la funcion x1 con variables simbolicas y se saca la
+%Transformada de Fourier.
+x1 = heaviside(t)-heaviside(t-2);
+X1 = fourier(x1,w)
+
+%Se escriben la funcion x2 con variables simbolicas y se saca la
+%Transformada de Fourier.
+x2 = heaviside(t)-heaviside(t-4);
+X2 = fourier(x2,w)
+
+%Se multiplica las dos senales
+Y = X1*X2
+
+%Se grafica x1(t), X1(w), x2(t), X2(w)
+figure
+
+subplot(3,2,1)
+fplot(x1,[0 10],'m')
+grid
+xlabel('t')
+ylabel('x_1(t)')
+title('Senal x_1(t)')
+ylim([-0.4 , 1.4])
+
+subplot(3,2,2)
+fplot(abs(X1),[-20 20],'r')
+grid
+xlabel('\omega')
+ylabel('X_1(\omega)')
+title('T.F de x_1(t)')
+ylim([-0.4 , 2.4])
+
+subplot(3,2,3)
+fplot(x2,[0 10],'b')
+grid
+xlabel('t')
+ylabel('x_2(t)')
+title('Senal x_2(t)')
+ylim([-0.4 , 1.4])
+
+subplot(3,2,4)
+fplot(abs(X2),[-20 20],'c')
+grid
+xlabel('\omega')
+ylabel('X_2(\omega)')
+title('T.F de x_2(t)')
+ylim([-0.4 , 4.8])
+
+%Se grafica de color verde la multiplicacion de la T.F de x1(t) con la T.F
+%de x2(t), Y(w)
+subplot(3,2,[5,6])
+fplot(abs(Y),[-10 10],'g')
+grid
+xlabel('\omega')
+ylabel('Y(\omega)')
+title('Multiplicacion X_1(\omega) \cdot X_2(\omega)')
+ylim([-0.4 , 8.8])
+end
+
+
+##### SOURCE END #####
+--></body></html>
